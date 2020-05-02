@@ -11,5 +11,6 @@ Clásico juego reversionado para Arduino utilizando:
 Se puede probar desde [Tinkercad](https://www.tinkercad.com/things/bNZBa46lN6r)
 
 # TODO
-- [ ] Comentar correctamente el codigo
+- [ ] Comentar el codigo
+- [ ] Mejorarlo, utilizar clases en lugar de vectores y magic numbers :)
 - [ ] Agregar mas proyetos
