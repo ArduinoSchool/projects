@@ -1,3 +1,14 @@
+/*
+Simon Says v0.1
+
+PENDIENTES:
+	- Comentar todo el codigo :)
+	- Usar clases en lugar de vectore
+	- Eliminar numeros magicos
+	- Mejorar la documentacion
+
+BY @arduino.school
+*/
 #include <LiquidCrystal.h>
 #include <Adafruit_NeoPixel.h>
 
@@ -52,7 +63,7 @@ void setup(){
   for(int i=0;i<NUMPIXELS;i++){
     pinMode(buttonsPins[i],INPUT_PULLUP);
   }
-  
+
   randomSeed(analogRead(A0));
   lcd.print("By@arduino.shool");
   lcd.setCursor(0,1);
@@ -72,13 +83,13 @@ void loop()
       stateSHOWING();
     }break;
     case WAITING:{
-      stateWAITING(); 
+      stateWAITING();
     }break;
     case LOSE:{
-      stateLOSE(); 
+      stateLOSE();
     }break;
     case WIN:{
-      stateWIN(); 
+      stateWIN();
     }break;
     default:{
     }break;
@@ -88,29 +99,29 @@ void loop()
 
 
 void stateRESET(){
-  
+
   	currentSequenceIndex=0;
     for(int i=0;i<MAX_SEQUENCE;i++){
 	  sequence[i]=-1; //Inicializamos la secuencia en -1
   	}
-  
+
   	colors[0][0]=0;
     colors[0][1]=0;
     colors[0][2]=255;
-  
+
   	colors[1][0]=0;
     colors[1][1]=255;
     colors[1][2]=0;
-  
+
     colors[2][0]=255;
     colors[2][1]=0;
     colors[2][2]=0;
-  
- 
+
+
     colors[3][0]=233;
     colors[3][1]=255;
     colors[3][2]=0;
-  
+
     //SIMON:(HERE)
   	lcd.setCursor(6,1);
   	lcd.print("Go!       ");
@@ -121,13 +132,13 @@ void stateRESET(){
 
   	prevSimonState=RESET;
 	goToSHOWING();
-  	
+
 }
 
 void stateWIN(){
-  
+
     for(int i=0;i<50;i++){
-      
+
       for(int j=0;j<NUMPIXELS;j++){
         int r = random(0,256);
         int g = random(0,256);
@@ -137,16 +148,16 @@ void stateWIN(){
       pixels.show();
       delay(50);
   	}
-  
+
   	prevSimonState=LOSE;
 	goToRESET();
-  	
+
 }
 
 void stateLOSE(){
-  
+
     for(int i=0;i<6;i++){
-      
+
       for(int j=0;j<NUMPIXELS;j++){
       	pixels.setPixelColor(j, pixels.Color(255,0,0));
       }
@@ -157,10 +168,10 @@ void stateLOSE(){
       delay(250);
 
   	}
-  
+
   	prevSimonState=LOSE;
 	goToRESET();
-  	
+
 }
 
 void stateSHOWING(){
@@ -170,7 +181,7 @@ void stateSHOWING(){
     }
     Serial.print("[SHOWING]:Showing ");
     Serial.println(sequence[i]);
-    
+
     lcd.print(sequence[i]);
  	lcd.setCursor(6,1);
 
@@ -187,20 +198,20 @@ void stateSHOWING(){
 }
 
 void stateWAITING(){
-  
+
   for(int i=0;i<NUMPIXELS;i++){
     currentButtonState[i]=!digitalRead(buttonsPins[i]);
-    
+
     if(prevButtonState[i]==false&&currentButtonState[i]==true){
-      
+
       Serial.print("[WAITING]Button ");
       Serial.print(i);
       Serial.println(" pressed.");
-      
+
       pixels.setPixelColor(i, pixels.Color(colors[i][0],colors[i][1],colors[i][2]));
       pixels.show();
       tone(BUZZER,freq[i]);
-      
+
       if(i!=sequence[waitingIndex]){
       	Serial.println("[WAITING]WRONG");
         noTone(BUZZER);
@@ -210,17 +221,17 @@ void stateWAITING(){
       }
 
     }
-    
+
     if(prevButtonState[i]==true&&currentButtonState[i]==false){
-      
+
       Serial.print("[WAITING]Button ");
       Serial.print(i);
-      Serial.println(" realesed.");    
-      
+      Serial.println(" realesed.");
+
       noTone(BUZZER);
       pixels.clear();
       pixels.show();
-      
+
       if(i==sequence[waitingIndex]){
       	Serial.println("[WAITING]CORRECT");
         if(waitingIndex==currentSequenceIndex){
@@ -231,16 +242,16 @@ void stateWAITING(){
           Serial.println("[WAITING]waiting next");
           waitingIndex++;
         }
-      } 
+      }
     }
-    
+
 	prevButtonState[i]=currentButtonState[i];
-    
+
   }
 }
 
 
-void goToSHOWING(){  
+void goToSHOWING(){
   Serial.println("goToSHOWING");
   if(currentSequenceIndex<MAX_SEQUENCE){
    int newPixel = random(0,NUMPIXELS);
@@ -256,11 +267,11 @@ void goToSHOWING(){
    noTone(BUZZER);
    lcd.print("     ");
    lcd.setCursor(6,1);
-    
+
    simonState=SHOWING;
   }else{
    goToWIN();
-  }	
+  }
 }
 
 void goToRESET(){
@@ -271,7 +282,7 @@ void goToRESET(){
 void goToWIN(){
   Serial.println("goToWIN");
   simonState=WIN;
-  
+
   lcd.print("  WIN  ");
   lcd.setCursor(6,1);
 }
@@ -286,9 +297,9 @@ void goToLOSE(){
 void goToWAITING(){
   waitingIndex=0;
   Serial.println("goToWAITING");
-  
+
   lcd.print("You!");
   lcd.setCursor(6,1);
- 
+
   simonState=WAITING;
 }
