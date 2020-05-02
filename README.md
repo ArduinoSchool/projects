@@ -2,5 +2,5 @@
 Pryectos hechos con Arduino
 
 # TODO
-[]Comment code
-[]Complete documentation
+- [ ] Comentar correctamente el codigo
+- [ ] Agregar mas proyetos
