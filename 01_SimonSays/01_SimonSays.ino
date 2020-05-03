@@ -3,9 +3,11 @@ Simon Says v0.1
 
 PENDIENTES:
 	- Comentar todo el codigo :)
-	- Usar clases en lugar de vectore
+	- Usar clases en lugar de vectores
 	- Eliminar numeros magicos
 	- Mejorar la documentacion
+
+TINKERCAD: 
 
 BY @arduino.school
 */
