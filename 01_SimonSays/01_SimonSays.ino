@@ -43,8 +43,8 @@ int sequence[MAX_SEQUENCE];
 int colors[NUMPIXELS][3];
 int freq[]={262,330,392,494};
 
-int prevButtonState[]={false,false,false,false};
-int currentButtonState[]={false,false,false,false};
+bool prevButtonState[]={false,false,false,false};
+bool currentButtonState[]={false,false,false,false};
 int buttonsPins[]={12,11,2,3};
 
 int currentSequenceIndex=0;
@@ -70,7 +70,6 @@ void setup(){
   lcd.print("SIMON:");
 }
 
-unsigned long prevTime=0;
 
 void loop()
 {
@@ -125,13 +124,13 @@ void stateRESET(){
     //SIMON:(HERE)
   	lcd.setCursor(6,1);
   	lcd.print("Go!       ");
-	lcd.setCursor(6,1);
+	  lcd.setCursor(6,1);
   	delay(speedMs);
     lcd.print("   ");
-	lcd.setCursor(6,1);
+	  lcd.setCursor(6,1);
 
   	prevSimonState=RESET;
-	goToSHOWING();
+	  goToSHOWING();
 
 }
 
@@ -183,7 +182,7 @@ void stateSHOWING(){
     Serial.println(sequence[i]);
 
     lcd.print(sequence[i]);
- 	lcd.setCursor(6,1);
+  	lcd.setCursor(6,1);
 
   	pixels.setPixelColor(sequence[i], pixels.Color(colors[sequence[i]][0],colors[sequence[i]][1],colors[sequence[i]][2]));
     pixels.show();
