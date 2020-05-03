@@ -7,7 +7,7 @@ PENDIENTES:
 	- Eliminar numeros magicos
 	- Mejorar la documentacion
 
-TINKERCAD: 
+TINKERCAD: https://www.tinkercad.com/things/1FWR4QQCAnns
 
 BY @arduino.school
 */

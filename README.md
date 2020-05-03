@@ -8,7 +8,7 @@ Clásico juego reversionado para Arduino utilizando:
 - Buzzer
 - 4 Push buttons
 
-Se puede probar desde [Tinkercad](https://www.tinkercad.com/things/bNZBa46lN6r)
+Se puede probar desde [este enlace en Tikercad](https://www.tinkercad.com/things/1FWR4QQCAnn)
 
 # TODO
 - [ ] Comentar el codigo
